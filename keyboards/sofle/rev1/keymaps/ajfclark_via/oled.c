@@ -34,7 +34,7 @@ static void print_status_narrow(void) {
     oled_write_P(PSTR("\n\n"), false);
 
     switch (get_highest_layer(layer_state)) {
-        case 0:
+        case _QWERTY:
             oled_write_ln_P(PSTR("Qwrt"), false);
             break;
         //case 1:
@@ -48,17 +48,23 @@ static void print_status_narrow(void) {
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
-        case 0:
+        case _QWERTY:
             oled_write_P(PSTR("Base\n"), false);
             break;
-        case 1:
+        case _LOWER:
             oled_write_P(PSTR("Lower"), false);
             break;
-        case 2:
+        case _RAISE:
             oled_write_P(PSTR("Raise"), false);
             break;
-        case 3:
-            oled_write_P(PSTR("Adjust"), false);
+        case _ADJUST:
+            oled_write_P(PSTR("Adjst"), false);
+            break;
+        case _NUM:
+            oled_write_P(PSTR("Num"), false);
+            break;
+        case _MOUSE:
+            oled_write_P(PSTR("Mouse"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
