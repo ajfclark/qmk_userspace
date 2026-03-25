@@ -39,7 +39,7 @@ static void print_status_narrow(void) {
         //   oled_write_ln_P(PSTR("Clmk"), false);
         //   break;
         default:
-            oled_write_P(PSTR("Mod"), false);
+            oled_write_ln_P(PSTR("Mod"), false);
             break;
     }
     oled_write_P(PSTR("\n\n"), false);
@@ -69,9 +69,15 @@ static void print_status_narrow(void) {
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("NUM"), led_usb_state.num_lock);
-    oled_write_ln_P(PSTR("CAP"), led_usb_state.caps_lock);
-    oled_write_ln_P(PSTR("SCR"), led_usb_state.scroll_lock);
+    if (led_usb_state.num_lock) {
+		oled_write_ln_P(PSTR("NUM"),false);
+	}
+    if (led_usb_state.caps_lock) {
+		oled_write_ln_P(PSTR("CAPS"),false);
+	}
+    if (led_usb_state.scroll_lock) {
+		oled_write_ln_P(PSTR("SCRLL"),false);
+	}
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
