@@ -49,13 +49,13 @@ static void print_status_narrow(void) {
         case _QWERTY:
             oled_write_P(PSTR("Base"), false);
             break;
-        case _LOWER:
+        case _SYM:
             oled_write_P(PSTR("Sym"), false);
             break;
-        case _RAISE:
+        case _EDIT:
             oled_write_P(PSTR("Edit"), false);
             break;
-        case _ADJUST:
+        case _MACRO:
             oled_write_P(PSTR("Macro"), false);
             break;
         case _NUM:
