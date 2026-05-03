@@ -1,5 +1,6 @@
  /* Copyright 2020 Josef Adamcik
   * Modification for VIA support and RGB underglow by Jens Bonk-Wiltfang
+  * Andrew Peltzer modified the layer names and lock indicators
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -42,42 +43,38 @@ static void print_status_narrow(void) {
             oled_write_ln_P(PSTR("Mod"), false);
             break;
     }
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("\n"), false);
     // Print current layer
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_write_P(PSTR("Base"), false);
+            oled_write_P(PSTR("Base\n"), false);
             break;
         case _SYM:
-            oled_write_P(PSTR("Sym"), false);
+            oled_write_P(PSTR("Sym\n"), false);
             break;
         case _EDIT:
-            oled_write_P(PSTR("Edit"), false);
+            oled_write_P(PSTR("Edit\n"), false);
             break;
         case _MACRO:
             oled_write_P(PSTR("Macro"), false);
             break;
         case _NUM:
-            oled_write_P(PSTR("Num"), false);
+            oled_write_P(PSTR("Num\n"), false);
             break;
         case _MOUSE:
             oled_write_P(PSTR("Mouse"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
+    oled_write_P(PSTR("\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
-    if (led_usb_state.num_lock) {
-		oled_write_ln_P(PSTR("NUM"),false);
-	}
-    if (led_usb_state.caps_lock) {
-		oled_write_ln_P(PSTR("CAPS"),false);
-	}
-    if (led_usb_state.scroll_lock) {
-		oled_write_ln_P(PSTR("SCRLL"),false);
-	}
+    oled_write_ln_P(PSTR(led_usb_state.num_lock ? "NUM" : ""),false);
+    oled_write_ln_P(PSTR(led_usb_state.caps_lock ? "CAPS" : ""),false);
+    oled_write_ln_P(PSTR(led_usb_state.scroll_lock ? "SCRLL" : ""),false);
+	// In case we messed up, clear a couple of extra lines
+    oled_write_P(PSTR("\n\n"), false);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
